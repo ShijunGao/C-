@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>软件学院主页</title>
+    <style>
+        #top{
+            position: absolute;
+            left: 267px;
+            width: 1000px;
+            height: 80px;
+            border: 1px solid black;
+        }
+        #second{
+            position: absolute;
+            top: 95px;
+            left: 267px;
+            width: 1000px;
+            height: 50px;
+            border: 1px solid black;
+        }
+        .left{
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            width: 604px;
+            height: 40px;
+            border: 1px solid black;
+        }
+        .jianjie{
+            width: 150px;
+            height: 40px;
+            border-right: 1px solid black;
+            float: left;
+            font-size: x-large;
+        }
+        .fengguang{
+            width: 150px;
+            height: 40px;
+            border-right: 1px solid black;
+            float: left;
+            font-size: x-large;
+        }
+        .zhouzhi{
+            width: 150px;
+            height: 40px;
+            border-right: 1px solid black;
+            float: left;
+            font-size: x-large;
+        }
+        .jiuye{
+            width: 150px;
+            height: 40px;
+            border-right: 0px solid black;
+            float: left;
+            font-size: x-large;
+        }
+        .right{
+            position: absolute;
+            top: 10px;
+            right: 50px;
+            font-family: 微软雅黑;
+            font-size: x-large;
+        }
+        #middle{
+            position: absolute;
+            top: 153px;
+            left: 267px;
+            width: 1000px;
+            height: 500px;
+        }
+        #left{
+            width: 715px;
+            height: 500px;
+            border: 1px solid black;
+            float: left;
+        }
+        #wangye{
+            width: 715px;
+            height: 500px;
+        }
+        #right{
+            position: absolute;
+            right: 0px;
+            width: 277px;
+            height: 500px;
+            float: right;
+        }
+        #righttop{
+            position: absolute;
+            width: 277px;
+            height: 250px;
+            border: 1px solid black;
+        }
+        .jiaoshidenglu{
+            width: 277px;
+            height: 55px;
+            margin-top: 5px;
+            font-size: larger;
+            font-family: 微软雅黑;
+        }
+        .mingcheng{
+            width: 277px;
+            height: 55px;
+            margin-top: 5px;
+            font-size: larger;
+            font-family: 宋体;
+        }
+        .mima{
+            width: 277px;
+            height: 55px;
+            margin-top: 5px;
+            font-size: larger;
+            font-family: 宋体;
+        }
+        .tijiao{
+            width: 277px;
+            height: 55px;
+            margin-top: 5px;
+            font-size: larger;
+            font-family: 宋体;
+        }
+        #rightbuttom{
+            position: absolute;
+            top: 260px;
+            width: 277px;
+            height: 240px;
+            border: 1px solid black;
+        }
+        .youqinglianjie{
+            width: 277px;
+            height: 75px;
+            margin-top: 10px;
+            font-size: x-large;
+            font-family: 微软雅黑;
+        }
+        .lianjie{
+            width: 277px;
+            height: 75px;
+            margin-top: 8px;
+            font-size: xx-large;
+            font-family: 宋体;
+        }
+        #buttom{
+            position: absolute;
+            top: 660px;
+            left: 267px;
+            width: 1000px;
+            height: 120px;
+            border: 1px solid black;
+            font-size: xx-large;
+            font-family: 楷体;
+        }
+        a{
+            line-height:40px
+        }
+    </style>
+</head>
+<body>
+<div id="top">
+    <img width="1000px" height="80px" src="120.jpg">
+</div>
+<div id="second">
+    <div class="left" style="text-align: center">
+        <div class="jianjie" >
+            <a href="http://ssdut.dlut.edu.cn/xygk1/xygk.htm">学院简介</a>
+        </div>
+        <div class="fengguang">
+            <a href="http://ssdut.dlut.edu.cn/xygk1/xyfg.htm">学院风光</a>
+        </div>
+        <div class="zhouzhi" style="text-align: center">
+            <a href="http://ssdut.dlut.edu.cn/bkspy/benkeshengjiaoxue.htm">学生周知</a>
+        </div>
+        <div class="jiuye">
+            <a href="http://ssdut.dlut.edu.cn/bkspy/bksgl/zsjy.htm">就业信息</a>
+        </div>
+    </div>
+    <div class="right">
+        导航栏
+    </div>
+</div>
+<div id="middle">
+    <div id="left">
+        <iframe name="xinlang" width="715px" height="500px"></iframe>
+    </div>
+    <div id="right"style="text-align: center">
+        <div id="righttop">
+            <div class="jiaoshidenglu" style="text-align: center" >
+                教师登陆
+            </div>
+            <div class="mingcheng" >
+                <form action="/example/html/form_action.asp" method="get">
+                    名称：<input type="text"  />
+                </form>
+            </div>
+            <div class="mima" >
+                <form action="/example/html/form_action.asp" method="get">
+                密码：<input type="password" />
+                </form>
+            </div>
+            <div class="tijiao" style="text-align: center">
+                <form action="/example/html/form_action.asp" method="get">
+                    <input type="submit" value="登陆" />
+                </form>
+            </div>
+        </div>
+        <div id="rightbuttom">
+            <div class="youqinglianjie" style="text-align: center">
+                友情链接
+            </div>
+            <div class="lianjie" style="text-align: center">
+                <a href="http://www.sina.com.cn/" target="xinlang">新浪网</a>
+                <a href="http://www.qq.com/" target="xinlang">腾讯网</a>
+            </div>
+            <div class="lianjie" style="text-align: center">
+                <a href="https://www.taobao.com/" target="xinlang">淘宝网</a>
+                <a href="http://www.renren.com/" target="xinlang">人人网</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="buttom" style="text-align: center">
+    ©版权所有：大连理工大学软件学院 地址：大连经济技术开发区图强街321号
+    Email：ssdut@dlut.edu.cn 　电话：0411-62274467 辽ICP备09013925号
+</div>
+</body>
+</html>
