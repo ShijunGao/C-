@@ -1,0 +1,85 @@
+#include "openHashTable.h" 
+#include "Word.h" 
+#include <cstring> 
+#include <iostream> 
+using namespace std;
+int myHash(const Word &a); //求权重函数
+int power(int n);//求2的n次方函数
+void menu();//打印菜单函数
+void main()
+{
+	Word w;
+	char chioce;
+	int n;
+	bool flag = false;
+	openHashTable<Word>dictionary(101, myHash); //定义一个名为dictionary的开散列表，即作为词典
+	while (!flag)
+	{
+		menu();
+		cin >> chioce;
+		switch (chioce)
+		{
+			case 'i': cout << " 请输入单词："; 
+				cin.ignore(1, '\n');
+				cin.getline(w.word, 25);
+				if (dictionary.insert(w)) 
+					cout << " 插入成功!" << endl; 
+				else cout << " 这个单词已存在!" << endl; 
+				break;
+			case 'd': cout << " 请输入单词："; 
+				cin.ignore(1, '\n');
+				cin.getline(w.word, 25);
+				if (dictionary.remove(w)) 
+					cout << " 删除成功!" << endl; 
+				else 
+					cout << " 这个单词不存在!" << endl; 
+				break;
+			case 's': cout << " 请输入单词："; 
+				cin.ignore(1, '\n');
+				cin.getline(w.word, 25);
+				n = dictionary.find(w);
+				if (n != 0) 
+					cout << " 已找到,单词在第" << n << "桶中"<< endl; 
+				else 
+					cout << " !" << endl; 
+				break;
+			case 'v': 
+				cout << " 词典如下所示：" << endl; 
+				dictionary.output();
+				break;
+			case 'q': 
+				flag = true;
+				break;
+			default:
+				cout << " 输入错误!" << endl;  
+				break;
+		}
+	}
+}
+//求权重函数的实现
+int myHash(const Word &a)
+{
+	unsigned long int num = 0;
+//从a（A）到z（Z）的权重依次为0到26
+	for (int i = 0; a.word[i] != '\0'; ++i)//将单词的从左到右分别乘上的2排位次方，如第四位乘2的3次方
+	{
+		if (a.word[i] >= 'a'&&a.word[i] <= 'z') 
+			num += (a.word[i] - '0' - 17 - 32)*power(i);
+		else
+			num += (a.word[i] - '0' - 17)*power(i);
+	}
+	return num;
+}//求2的n次方函数的实现
+int power(int n)
+{
+	int num = 1;
+	for (int i = 1; i <= n; ++i) 
+		num *= 2;
+	return num;
+
+}
+//打印菜单函数的实现
+void menu()
+{
+	cout << "\n==================== Menu =============================\n"<< " i--insert d--delete s--search v--view q--exit \n" << " 请选择：";  
+}

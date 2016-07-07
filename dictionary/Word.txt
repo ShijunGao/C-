@@ -1,0 +1,26 @@
+#include <cstring> 
+#include <iostream> 
+using namespace std;
+class Word 
+{
+	friend ostream& operator<<(ostream &os, const Word & obj)//重载输出函数
+	{
+		int n = strlen(obj.word);
+		for (int i = 0; i < n; ++i) os << obj.word[i];
+		return os;
+	}
+public:
+		char word[25];	//用于存放单词
+		Word() { for (int i = 0; i < 25; ++i) word[i] = '\0'; }
+    	bool operator==(Word &r)//重载判断相等符号
+		{
+
+			if (strcmp(word, r.word) == 0)
+				return true;
+			else return false;
+		}
+		void operator=(Word &r) 
+		{
+			strcpy_s(word, r.word);
+		}//重载赋值运算符
+};

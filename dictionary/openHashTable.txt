@@ -1,0 +1,137 @@
+#include <cstring> 
+#include <iostream> 
+using namespace std;
+template <class Type>
+class openHashTable 
+{
+private:
+	struct node 
+	{//	私有结点
+		Type data;
+		struct node *next;
+		node() { next = NULL; }
+		node(Type &d) { data = d; next = NULL; }
+	};
+	node **array;
+	int(*key)(const Type &x);//关键字
+	static int defaultKey(const int &k) { return k; }//缺省值
+	int size;
+public:
+	openHashTable(int length = 101, int(*f)(const Type &x) = defaultKey);
+	~openHashTable();
+	int find(Type &x);
+	//查找函数
+	bool insert(Type &x); //插入函数
+	bool remove(Type &x); //删除函数
+	void output(); //输出词典函数
+};
+//构造函数的实现
+template <class Type>
+openHashTable<Type>::openHashTable(int length, int(*f)(const Type &x))
+{
+	size = length;
+	array = new node *[size];
+	key = f;
+	for (int i = 0; i < size; ++i) array[i] = new node;
+}
+//析构函数的实现
+template <class Type>
+openHashTable<Type>::~openHashTable()
+{
+	node *p, *q;
+	for (int i = 0; i < size; ++i)
+	{
+		p = array[i];//分别析构每一个桶的相应链
+		do {
+			q = p->next;
+			delete p;
+			p = q;
+			
+		}while (p != NULL);
+		
+	}
+	delete[] array;
+	
+}
+//插入函数的实现
+template <class Type>
+bool openHashTable<Type>::insert(Type &x)
+{
+	int pos;
+	node *p;
+	pos = key(x) % size; //计算相对应的关键字
+	p = array[pos]->next;
+	while (p != NULL && !(p->data == x)) p = p->next;
+	if (p == NULL)
+	{
+		p = new node(x);
+		p->next = array[pos]->next;
+		array[pos]->next = p;
+		return true;
+	}
+	return false;
+}
+//删除函数的实现
+template <class Type>
+bool openHashTable<Type>::remove(Type &x)
+{
+	int pos;
+	node *p, *q;
+	pos = key(x) % size; //	计算相对应的关键字
+	q = array[pos];
+	p = q->next;
+	while (p != NULL && !(p->data == x))
+	{
+		q = p;
+		p = p->next;
+	}
+	if (p == NULL)
+		return false; //	没有找到
+	else 
+	{
+		q->next = p->next; //找到后删除
+		delete p;
+		return true;
+	}
+}
+//查找函数的实现
+template<class Type>
+int openHashTable<Type>::find(Type &x)
+{
+	int pos;
+	node *p;
+	pos = key(x) % size; //	计算相对应的关键字
+	p = array[pos];
+	while (p->next != NULL && !(p->next->data == x)) 
+		p = p->next;
+	if (p->next != NULL)
+		return pos; //找到返回相应的桶位
+	else
+		return 0; //没到找到就返回0
+}
+//打印词典函数的实现
+template<class Type>
+void openHashTable<Type>::output()
+{
+	node *p;
+	for (int i = 0; i < size; ++i)
+	{
+		if (array[i]->next != NULL)
+		{
+			p = array[i]->next;
+			if (i < 10)
+				cout << " [00" << i << "] ";//输出单词的桶位
+			if (i > 10 && i < 100)
+				cout << " [0" << i << "] ";
+			while (p != NULL) //打印同一桶位，即有冲突的单词
+			{
+				cout << p->data;
+				if (p->next != NULL)
+					cout << " --> ";
+				if (p->next == NULL)
+					cout << endl;
+				p = p->next;
+			}
+		}
+	}
+}
