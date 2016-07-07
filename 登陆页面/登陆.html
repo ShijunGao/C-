@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>getJSON获取数据</title>
+    <script src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
+    <style type="text/css">
+        #divframe{
+            border:1px solid #999;
+            width:500px;
+            height:400px;
+            margin:0 auto;
+        }
+        .loadTitle{
+            background:#CCC;
+            height:30px;
+        }
+        #login{
+            border:1px solid #999;
+            margin:20px auto;
+            padding:5px 5px 5px 5px;
+            width:500px;
+            height:300px;
+        }
+        .inputText{width:120px;}
+    </style>
+    <script type="text/javascript">
+
+        $(function(){
+            /*------------案例一登录功能----------------*/
+
+            //登录按钮触发事件
+            $("#btnLogin").click(function(){
+                $.ajax({
+                    type:"GET",
+                    url:"list.json",
+                    dataType:"json",
+                    success:function(data){//当ajax提交成功返回后执行该闭包函数。
+                        var status=0;
+                        var uname=$("input[name='username']").attr("value").trim();
+                        var pwd=$("input[name='password']").attr("value");
+                        $.each(data,function(infoIndex,info){
+                            if(uname==info["username"] && pwd==info["password"]){
+                                status=1;
+                                alert("用户"+uname+" 登录成功！");
+                                location.href = 'http://www.baidu.com';
+                                exit;
+                            }else{
+                                //密码错误
+                                if(uname==info["username"]&&pwd!=info["password"]){
+                                    status=1;
+                                    alert("用户"+uname+" 密码错误！");
+                                }
+                            }
+                        });
+                        if(status==0){
+                            alert("无此用户！");
+                        }
+                    }
+                })
+
+            });
+
+            /*------------案例二----------------*/
+
+            //添加按钮触发事件
+            $("#btnAdd").click(function(){//$("#btnAdd")取得ID为btnAdd的组件对象，当执行它的单击事件时候触发该闭包函数。
+                $.ajax({//调用jquery封装的ajax函数。
+                    type:"GET", //提交方式 GET，或者POST.相当于form表单的method="get"
+                    url:"list.json", //获取返回数据的文件路径。可以是json格式数据文件。也可以是返回json数据的类。
+                    dataType:"json", //数据的返回类型
+                    success:function(data){//当ajax提交成功返回后执行该闭包函数。
+                        var $jsontip = $("#jsonTip");//将$("#jsonTip")对象复制给$jsontip
+                        var strHtml = "";//存储数据的变量
+                        $jsontip.empty();//清空内容，解决每次点击按钮重复添加数据的问题。
+                        $.each(data,function(infoIndex,info){
+                            //遍历data数组，默认该闭包函数可以取得2个参数，第一个代表数组索引，第二个代表对应的值。变量名可以任意。
+                            strHtml += "<span id='cc"+infoIndex+"'>"
+                            //下边是动态组建html字符串，生成<span id="cc0">姓名：张三<br>.....</span> 具体结构可以在浏览器中查看html元素
+                            strHtml += "姓名："+info["name"]+"<br>";
+                            strHtml += "账号："+info["username"]+"<br>";
+                            strHtml += "密码："+info["password"]+"<br>";
+                            strHtml += "性别："+info["sex"]+"<br>";
+                            strHtml += "邮箱："+info["email"]+"<br>";
+                            strHtml += "</span>"
+                        })
+                        $jsontip.html(strHtml);//显示处理后的数据 ，将组建好的html字符串添加到ID为jsonTip的组件中。
+                    }
+                });
+            });
+            //删除按钮单击触发事件
+            $("#btnRemove").click(function(){//$("#btnRemove")取得ID为btnRemove的组件对象，当执行它的单击事件时候触发该闭包函数。
+                var len=$('#jsonTip').children('span').length;//取得#jsonTip中的span元素的个数。
+                len--;//每次递减一个
+                $('#cc'+len).remove();//每次单击删除最后一个span元素。
+                if(len < 0){//如果元素删除没有了，弹出对话框。
+                    alert('没有数据了！');
+                }
+            });
+        })
+
+    </script>
+</head>
+<body>
+
+<div id="login">
+    <h1><span>综合案例一>>模拟网站登录功能</span></h1>
+    <div>
+        用户名: <input type="text" name="username" class="inputText"/>
+        密  码: <input type="password" name="password" class="inputText"/>
+        <input type="button" value="登录" id="btnLogin"/>
+    </div>
+</div>
+
+<div id="divframe">
+    <h1><span>综合案例2</span></h1>
+    <div class="loadTitle">
+        <input type="button" value="添加数据" id="btnAdd"/>
+        <input type="button" value="移除数据" id="btnRemove"/>
+    </div>
+    <div id="jsonTip"></div>
+</div>
+
+</body>
+</html>
